@@ -1,24 +1,65 @@
-# README
+## Users
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Colum               |Type    |Option                     |
+|--------------------|--------|---------------------------|
+|nickname            |string  |null: false                |
+|email               |string  |null: false, unique: true  |
+|encrypted_password  |string  |null: false                |
+|firstname           |string  |null: false                |
+|lastname            |string  |null: false                |
+|furiganafirst       |string  |null: false                |
+|furiganalast        |string  |null: false                |
+|birthday            |date    |null: false                |
 
-Things you may want to cover:
+### Association
 
-* Ruby version
+・has_many :items
+・has_many :recodes
 
-* System dependencies
+## Items
 
-* Configuration
+|Colum        |Type        |Option                          |
+|-------------|------------|--------------------------------|
+|name         |string      |null: false                     |
+|info         |text        |null: false                     |
+|category_id  |integer     |null: false                     |
+|status_id    |integer     |null: false                     |
+|area_id      |integer     |null: false                     |
+|days_id      |integer     |null: false                     |
+|haisoryo_id  |integer     |null: false                     |
+|price        |integer     |null: false                     |
+|user         |references  |null: false, foreign_key: true  |
 
-* Database creation
+### Association
 
-* Database initialization
+・has_one :recode
+・belongs_to :user
 
-* How to run the test suite
+## Buys
 
-* Services (job queues, cache servers, search engines, etc.)
+|Colum     |Type        |Option                          |
+|----------|------------|--------------------------------|
+|postcode  |string      |null: false                     |
+|area_id   |integer     |null: false                     |
+|city      |string      |null: false                     |
+|address   |string      |null: false                     |
+|build     |string      |                                |
+|number    |string      |null: false                     |
+|recode    |references  |null: false, foreign_key: true  |
 
-* Deployment instructions
+### Association
 
-* ...
+・belongs_to :recode
+
+## Recodes
+
+|Colum  |Type        |Option                          |
+|-------|------------|--------------------------------|
+|user   |references  |null: false, foreign_key: true  |
+|item   |references  |null: false, foreign_key: true  |
+
+### Association
+
+・belongs_to :user
+・belongs_to :item
+・has_one :buy
