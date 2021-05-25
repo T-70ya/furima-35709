@@ -14,7 +14,7 @@
 ### Association
 
 ・has_many :items
-・has_one :recode
+・has_many :recodes
 
 ## Items
 
@@ -43,13 +43,13 @@
 |area_id   |integer     |null: false                     |
 |city      |string      |null: false                     |
 |address   |string      |null: false                     |
-|build     |string      |null: false                     |
+|build     |string      |                                |
 |number    |string      |null: false                     |
 |recode    |references  |null: false, foreign_key: true  |
 
 ### Association
 
-・has_one :recode
+・belongs_to :recode
 
 ## Recodes
 
@@ -61,4 +61,5 @@
 ### Association
 
 ・belongs_to :user
-・belongs_to :buy
+・belongs_to :item
+・has_one :buy
