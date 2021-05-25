@@ -14,8 +14,7 @@
 ### Association
 
 ・has_many :items
-・has_many :recodes
-・belongs_to :buy
+・has_one :recode
 
 ## Items
 
@@ -23,40 +22,34 @@
 |-------------|------------|--------------------------------|
 |name         |string      |null: false                     |
 |info         |text        |null: false                     |
-|category_id  |interger    |null: false                     |
-|status       |string      |null: false                     |
-|area         |string      |null: false                     |
-|days         |datetime    |null: false                     |
-|haisoryo     |integer     |null: false                     |
+|category_id  |integer     |null: false                     |
+|status_id    |integer     |null: false                     |
+|area_id      |integer     |null: false                     |
+|days_id      |integer     |null: false                     |
+|haisoryo_id  |integer     |null: false                     |
 |price        |integer     |null: false                     |
 |user         |references  |null: false, foreign_key: true  |
 
 ### Association
 
-・has_many :recodes
-・belongs_to :buy
+・has_one :recode
 ・belongs_to :user
 
 ## Buys
 
-|Colum         |Type        |Option                          |
-|--------------|------------|--------------------------------|
-|credit        |integer     |null: false                     |
-|deadline      |date        |null: false                     |
-|security      |integer     |null: false                     |
-|postcode      |string      |null: false                     |
-|todofuken_id  |integer     |null: false                     |
-|city          |string      |null: false                     |
-|address       |string      |null: false                     |
-|build         |string      |null: false                     |
-|number        |integer     |null: false                     |
-|user          |references  |null: false, foreign_key: true  |
-|item          |references  |null: false, foreign_key: true  |
+|Colum     |Type        |Option                          |
+|----------|------------|--------------------------------|
+|postcode  |string      |null: false                     |
+|area_id   |integer     |null: false                     |
+|city      |string      |null: false                     |
+|address   |string      |null: false                     |
+|build     |string      |null: false                     |
+|number    |string      |null: false                     |
+|recode    |references  |null: false, foreign_key: true  |
 
 ### Association
 
-・belongs_to :user
-・belongs_to :items
+・has_one :recode
 
 ## Recodes
 
@@ -68,4 +61,4 @@
 ### Association
 
 ・belongs_to :user
-・belongs_to :item
+・belongs_to :buy
