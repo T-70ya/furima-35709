@@ -12,11 +12,11 @@ class User < ApplicationRecord
   }
 
   validates :firstname, presence: true, format: {
-    with: /\A[ぁ-んァ-ン一-龥]/,
+    with: /\A[ぁ-んァ-ン一-龥々]+\z/,
     message: "漢字、ひらがな、カタカナで入力してください"
   }
   validates :lastname, presence: true, format: {
-    with: /\A[ぁ-んァ-ン一-龥]/,
+    with: /\A[ぁ-んァ-ン一-龥々]+\z/,
     message: "漢字、ひらがな、カタカナで入力してください"
   }
   validates :furiganafirst, presence: true, format: {
