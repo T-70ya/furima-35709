@@ -6,6 +6,12 @@ class Item < ApplicationRecord
   belongs_to :area
   belongs_to :day
 
+  with_options presence: true do
+    validates :name
+    validates :info
+    validates :price
+  end
+
   with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :status_id
