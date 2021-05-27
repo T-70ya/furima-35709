@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :edit_ng, only: :edit
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :edit_ng, only: [:edit, :update]
+  before_action :ryaku, only: [:show, :edit, :update]
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -20,21 +21,23 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+
   end
 
   def edit
-    @item = Item.find(params[:id])
+
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(params_item)
       redirect_to action: :show
     else
       render :edit
     end
   end
+
+
+  
 
 
   private
@@ -45,8 +48,12 @@ class ItemsController < ApplicationController
 
   def edit_ng
     @item = Item.find(params[:id])
-    unless user_signed_in? && @item.user.id == current_user.id
+    unless @item.user.id == current_user.id
       redirect_to root_path
     end
+  end
+
+  def ryaku
+    @item = Item.find(params[:id])
   end
 end
