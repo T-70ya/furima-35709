@@ -18,7 +18,7 @@ class User < ApplicationRecord
       validates :lastname
     end
 
-    with_options format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: "全角カタカナのみで入力して下さい"} do
+    with_options format: {with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: "全角カタカナのみで入力して下さい"} do
       validates :furiganafirst
       validates :furiganalast
     end
@@ -26,5 +26,7 @@ class User < ApplicationRecord
     validates :birthday
   
   end
+
+  has_many :items
 
 end
