@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :edit_ng, only: [:edit, :update]
   before_action :ryaku, only: [:show, :edit, :update]
+  before_action :edit_ng, only: [:edit, :update]
+  
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -47,7 +48,6 @@ class ItemsController < ApplicationController
   end
 
   def edit_ng
-    @item = Item.find(params[:id])
     unless @item.user.id == current_user.id
       redirect_to root_path
     end
