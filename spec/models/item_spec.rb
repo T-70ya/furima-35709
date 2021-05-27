@@ -7,9 +7,10 @@ RSpec.describe Item, type: :model do
       @item.image = fixture_file_upload("/files/test_image.jpeg")
     end
 
-
-    it "全て入力されていれば出品できること" do
-      expect(@item).to be_valid
+    context "商品の情報が正しいとき" do
+      it "全て入力されていれば出品できること" do
+        expect(@item).to be_valid
+      end
     end
 
     context "商品の情報が正しくない時 " do
@@ -25,38 +26,38 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
 
-      it "商品情報が空だと出品することはできない" do
+      it "商品説明が空だと出品することはできない" do
         @item.info = " "
         @item.valid?
         expect(@item.errors.full_messages).to include("Info can't be blank")
       end
 
       it "商品カテゴリーが---だと出品できない" do
-        @item.category_id = "1"
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
       it "商品の状態が---だと出品できない" do
-        @item.status_id = "1"
+        @item.status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Status must be other than 1")
       end
 
       it "商品の配送料の負担が---だと出品できない" do
-        @item.haisoryo_id = "1"
+        @item.haisoryo_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Haisoryo must be other than 1")
       end
       
       it "商品の発送元地域が---だと出品できない" do
-        @item.area_id = "1"
+        @item.area_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Area must be other than 1")
       end
 
       it "商品を発送するまでの日数が---だと出品できない" do
-       @item.day_id = "1"
+       @item.day_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Day must be other than 1")
       end
@@ -68,19 +69,19 @@ RSpec.describe Item, type: :model do
       end
 
       it "商品価格が300円未満だと出品できない" do
-        @item.price = "250"
+        @item.price = 250
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
 
       it "商品価格が9999999円超過だと出品できない" do
-        @item.price = "10000000"
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
 
-      it "商品価格は半角数字でないと出品することはできない" do
-        @item.price = "１０００"
+      it "商品価格は半角英数字混合では出品することはできない" do
+        @item.price = "abc123"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
