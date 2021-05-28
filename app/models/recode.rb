@@ -1,0 +1,2 @@
+class Recode < ApplicationRecord
+end
