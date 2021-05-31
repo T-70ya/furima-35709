@@ -1,5 +1,6 @@
 class RecodesController < ApplicationController
-  before_action :sold_out_item, only: [:index]
+  before_action :authenticate_user!, only: :index
+  before_action :sold_out_item, only: :index
 
 
   def index
@@ -36,7 +37,8 @@ class RecodesController < ApplicationController
   end
 
   def sold_out_item
-    unless @recode_buy.present?
+    @item = Item.find(params[:item_id])
+    if @item.user_id == current_user.id || @item.recode.present?
       redirect_to root_path
     end
   end
