@@ -1,15 +1,20 @@
 class RecodesController < ApplicationController
+  before_action :sold_out_item, only: [:index]
+
+
   def index
     @item = Item.find(params[:item_id])
-    @recode_buy = Recode.new
+    @recode_buy = RecodeBuy.new
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @recode_buy = RecodeBuy.new(params_recode)
     if @recode_buy.valid?
+      pey_item
       @recode_buy.save
       redirect_to root_path
-    else
+    else 
       render :index
     end
   end
@@ -18,6 +23,22 @@ class RecodesController < ApplicationController
   private
 
   def params_recode
-    params.require(:recode_buy).permit(:postcode, :area_id, :city, :address, :build, :number, :image, :price, :haisoryo_id, :user_id, :item_id).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:recode_buy).permit(:postcode, :area_id, :city, :address, :build, :number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
+
+  def pey_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: params_recode[:token],
+      currency: 'jpy'
+    )
+  end
+
+  def sold_out_item
+    unless @recode_buy.present?
+      redirect_to root_path
+    end
+  end
+
 end

@@ -52,6 +52,6 @@ class Area < ActiveHash::Base
 
   include ActiveHash::Associations
   has_many :items
-  has_many :buys
+  belongs_to :buy
 
 end
