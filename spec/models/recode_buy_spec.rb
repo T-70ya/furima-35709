@@ -61,7 +61,7 @@ RSpec.describe RecodeBuy, type: :model do
         expect(@recode_buy.errors.full_messages).to include("Number can't be blank")
       end
 
-      it "電話番号が11桁以上だと購入することはできない" do
+      it "電話番号が12桁以上だと購入することはできない" do
         @recode_buy.number = "090123456789"
         @recode_buy.valid?
         expect(@recode_buy.errors.full_messages).to include("Number is invalid")
@@ -73,6 +73,17 @@ RSpec.describe RecodeBuy, type: :model do
         expect(@recode_buy.errors.full_messages).to include("Token can't be blank")
       end
 
+      it "ユーザーがいないと購入することはできない" do
+        @recode_buy.user_id = nil
+        @recode_buy.valid?
+        expect(@recode_buy.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "商品がないと購入することはできない" do
+        @recode_buy.item_id = nil
+        @recode_buy.valid?
+        expect(@recode_buy.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end

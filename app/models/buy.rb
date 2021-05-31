@@ -1,7 +1,7 @@
 class Buy < ApplicationRecord
   belongs_to :recode
 
-  has_many :areas
+  belongs_to :area
 
  
 end

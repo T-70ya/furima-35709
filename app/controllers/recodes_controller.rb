@@ -1,15 +1,14 @@
 class RecodesController < ApplicationController
-  before_action :authenticate_user!, only: :index
-  before_action :sold_out_item, only: :index
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :item_find, only: [:index, :create]
+  before_action :sold_out_item, only: [:index, :create]
 
 
   def index
-    @item = Item.find(params[:item_id])
     @recode_buy = RecodeBuy.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @recode_buy = RecodeBuy.new(params_recode)
     if @recode_buy.valid?
       pey_item
@@ -36,8 +35,11 @@ class RecodesController < ApplicationController
     )
   end
 
-  def sold_out_item
+  def item_find
     @item = Item.find(params[:item_id])
+  end
+
+  def sold_out_item
     if @item.user_id == current_user.id || @item.recode.present?
       redirect_to root_path
     end
