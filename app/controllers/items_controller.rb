@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def edit_ng
-    unless @item.user.id == current_user.id
+    unless @item.user.id == current_user.id && @item.recode.blank?
       redirect_to root_path
     end
   end
