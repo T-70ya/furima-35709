@@ -4,13 +4,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  validates :password, format: { 
-  with: /\A(?=.*?[a-z])(?=.*?\d)[\w-]{6,128}+\z/i,
-  message: "半角英数字で入力してください"
-  }
 
+
+  has_many :items
+  has_many :recodes
+
+
+  validates :password, format: { 
+    with: /\A(?=.*?[a-z])(?=.*?\d)[\w-]{6,128}+\z/i,
+    message: "半角英数字で入力してください"
+  }
+  
   with_options presence: true do
-    
+      
     validates :nickname
 
     with_options format: {with: /\A[ぁ-んァ-ン一-龥々]+\z/, message: "漢字、ひらがな、カタカナで入力してください"} do
@@ -26,7 +32,4 @@ class User < ApplicationRecord
     validates :birthday
   
   end
-
-  has_many :items
-
 end

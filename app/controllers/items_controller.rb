@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :ryaku, only: [:show, :edit, :update, :destroy]
   before_action :edit_ng, only: [:edit, :update, :destory]
   
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def edit_ng
-    unless @item.user.id == current_user.id
+    unless @item.user.id == current_user.id && @item.recode.blank?
       redirect_to root_path
     end
   end
