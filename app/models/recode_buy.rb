@@ -6,7 +6,7 @@ class RecodeBuy
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, messages: "郵便番号はハイフンを入れてください" }
     validates :city
     validates :address
-    validates :number, format: {with: /\A\d{1,2,3,4,5,6,7,8,9,10,11}\z/ }
+    validates :number, format: {with: /\A\d{,11}\z/ }
     validates :area_id, numericality: { other_than: 1 }
     validates :user_id
     validates :item_id
