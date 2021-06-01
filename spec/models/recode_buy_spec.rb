@@ -67,6 +67,12 @@ RSpec.describe RecodeBuy, type: :model do
         expect(@recode_buy.errors.full_messages).to include("Number is invalid")
       end
 
+      it "電話番号が英数字混合だと購入することはできない" do
+        @recode_buy.number = "0901234AbCd"
+        @recode_buy.valid?
+        expect(@recode_buy.errors.full_messages).to include("Number is invalid")
+      end
+
       it "カード情報が空だと購入することはできない" do
         @recode_buy.token = nil
         @recode_buy.valid?
