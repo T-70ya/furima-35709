@@ -9,6 +9,10 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one :recode
   has_one_attached :image
+  has_many :favorites, dependent: :destroy
+  def favorite_user(user_id)
+    favorites.find_by(user_id: user_id)
+  end
 
   with_options presence: true do
     validates :name
