@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :recodes
 
+  
 
   validates :password, format: { 
     with: /\A(?=.*?[a-z])(?=.*?\d)[\w-]{6,128}+\z/i,
