@@ -1,5 +1,5 @@
-<% if user_signed_in? %>
-  <% if item.favorite_user(current_user.id) %>
+<% if user_signed_in? && item.user_id != current_user.id %>
+  <% if item.favorite_user(current_user.id)%>
     <%= link_to item_favorite_path(item_id: item.id, id: item.favorites[0].id), method: :delete, remote: true do %>
       <%= image_tag("yellow_star.png", style: "width: 20px;, height:20px;") %>
       <span>
