@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   private
 
   def params_item
-    params.require(:item).permit(:image, :name, :info, :category_id, :status_id, :haisoryo_id, :area_id, :day_id, :price).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :info, :category_id, :status_id, :haisoryo_id, :area_id, :day_id, :price, images: []).merge(user_id: current_user.id)
   end
 
   def edit_ng
