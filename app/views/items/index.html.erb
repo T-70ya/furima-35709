@@ -132,7 +132,9 @@
       <li class='list'>
         <%= link_to item_path(i.id) do %>
         <div class='item-img-content'>
-          <%= image_tag i.image, class: "item-img" %>
+          <% i.images.each do |image| %>
+            <%= image_tag image, class: "item-img" %>
+          <% end %>
 
           <% if i.recode.present? %>
             <div class='sold-out'>
