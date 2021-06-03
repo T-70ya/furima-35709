@@ -10,6 +10,7 @@ require("../item_price");
 require("../card");
 require('jquery')
 require('turbolinks')
+require('../preview')
 
 window.$ = $;
 
